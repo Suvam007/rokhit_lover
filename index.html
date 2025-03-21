@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Puja ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .intro-container {
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .intro-button {
+            background: rgba(255, 255, 255, 0.8);
+            color: #e83e8c;
+            border: 2px solid #e83e8c;
+            padding: 15px 30px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .intro-button:hover {
+            background: #e83e8c;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .content-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .photo-container {
+            position: relative;
+            width: 80%;
+            height: 70%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+        
+        .photo {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .photo.move-out {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5) translateZ(-500px);
+        }
+        
+        .final-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease, visibility 1s;
+            z-index: 20;
+        }
+        
+        .final-message h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(232, 62, 140, 0.8), 0 0 20px rgba(232, 62, 140, 0.5);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0;
+            z-index: 5;
+        }
+        
+        .heart svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .photo {
+    position: absolute;
+    width: 800px; /* Increased size */
+    height: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    opacity: 0;
+    transition: transform 3s ease-in-out, opacity 1s ease; /* Slower animation */
+}
+
+.photo.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.final-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 10;
+}
+
+.final-message h1 {
+    font-size: 5rem; /* Bigger text */
+    color: white;
+    text-shadow: 0 0 10px rgba(232, 62, 140, 0.8);
+}
+
+    </style>
+</head>
+<body>
+    <div class="intro-container" id="intro">
+        <button class="intro-button" id="startButton">Click Here For A Surprise</button>
+    </div>
+    
+    <div class="content-container" id="content">
+        <div class="photo-container" id="photoContainer"></div>
+    </div>
+    
+    <div class="final-message" id="finalMessage">
+        <h1>I LOVE YOU PUJA</h1>
+    </div>
+    
+    <script>
+        // Wait for document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const startButton = document.getElementById('startButton');
+            const intro = document.getElementById('intro');
+            const content = document.getElementById('content');
+            const photoContainer = document.getElementById('photoContainer');
+            const finalMessage = document.getElementById('finalMessage');
+            
+            // Add event listener to the start button
+            startButton.onclick = function() {
+                // Hide intro and show content
+                intro.style.display = 'none';
+                content.style.display = 'flex';
+                
+                // Create and show photos
+                showPhotos();
+                
+                // Create floating hearts
+                createHearts();
+            };
+            
+                function showPhotos() {
+    const photos = [
+        '/WhatsApp Image 2025-03-21 at 20.13.46_68d2afa3.jpg',
+        '/WhatsApp Image 2025-03-21 at 20.13.59_5caf3912.jpg',
+        '/WhatsApp Image 2025-03-21 at 20.13.59_6807d70e.jpg',
+        '/WhatsApp Image 2025-03-21 at 20.13.59_8fbf1f06.jpg',
+        '/WhatsApp Image 2025-03-21 at 20.14.00_408a7b5a.jpg'
+    ];
+
+    photoContainer.innerHTML = ''; // Clear any existing photos
+
+    photos.forEach((src, index) => {
+        setTimeout(() => {
+            const photo = document.createElement('div');
+            photo.className = 'photo';
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Photo ' + (index + 1);
+            photo.appendChild(img);
+
+            photoContainer.appendChild(photo);
+
+            setTimeout(() => {
+                photo.classList.add('active');
+            }, 100);
+
+            // Spread images after some time
+            if (index === photos.length - 1) {
+                setTimeout(spreadPhotos, 7000); // Extended delay before spreading
+            }
+        }, index * 700); // Slower stagger effect
+    });
+}
+
+function spreadPhotos() {
+    const photos = document.querySelectorAll('.photo');
+
+    photos.forEach((photo) => {
+        const x = Math.random() * (window.innerWidth - 400); // Avoiding edge cut-offs
+        const y = Math.random() * (window.innerHeight - 400); 
+        const rotation = Math.random() * 60 - 30; // More natural tilt
+
+        photo.style.transition = 'all 3s ease-in-out'; // Longer animation
+        photo.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg) scale(1.3)`;
+    });
+
+    // Show final message after spreading animation
+    setTimeout(showFinalMessage, 3500);
+}
+
+function showFinalMessage() {
+    finalMessage.style.opacity = '1';
+    finalMessage.style.visibility = 'visible';
+
+    // Heartbeat effect on message
+    const h1 = finalMessage.querySelector('h1');
+    setInterval(() => {
+        h1.style.animation = 'heartbeat 1s';
+        setTimeout(() => {
+            h1.style.animation = 'none';
+        }, 1000);
+    }, 3000);
+}
+
+            
+            function createHearts() {
+                const body = document.body;
+                
+                // Heart SVG
+                const heartSVG = `<svg viewBox="0 0 24 24" fill="#e83e8c"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+                
+                // Create multiple hearts
+                for (let i = 0; i < 30; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = heartSVG;
+                    
+                    // Random position
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = Math.random() * 100 + '%';
+                    
+                    // Random size
+                    const size = Math.random() * 20 + 20;
+                    heart.style.width = size + 'px';
+                    heart.style.height = size + 'px';
+                    
+                    // Add floating animation
+                    heart.style.animation = `float ${Math.random() * 3 + 3}s infinite ease-in-out`;
+                    heart.style.animationDelay = Math.random() * 5 + 's';
+                    
+                    // Add to body
+                    body.appendChild(heart);
+                    
+                    // Fade in
+                    setTimeout(() => {
+                        heart.style.opacity = Math.random() * 0.5 + 0.3;
+                    }, i * 100);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
