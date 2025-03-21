@@ -150,14 +150,14 @@
         }
         .photo {
     position: absolute;
-    width: 800px; /* Increased size */
+    width: 800px;
     height: 400px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     opacity: 0;
-    transition: transform 3s ease-in-out, opacity 1s ease; /* Slower animation */
+    transition: transform 3s ease-in-out, opacity 1s ease; 
 }
 
 .photo.active {
@@ -178,7 +178,7 @@
 }
 
 .final-message h1 {
-    font-size: 5rem; /* Bigger text */
+    font-size: 5rem;
     color: white;
     text-shadow: 0 0 10px rgba(232, 62, 140, 0.8);
 }
@@ -199,7 +199,7 @@
     </div>
     
     <script>
-        // Wait for document to be fully loaded
+       
         document.addEventListener('DOMContentLoaded', function() {
             const startButton = document.getElementById('startButton');
             const intro = document.getElementById('intro');
@@ -207,20 +207,18 @@
             const photoContainer = document.getElementById('photoContainer');
             const finalMessage = document.getElementById('finalMessage');
             
-            // Add event listener to the start button
+         
             startButton.onclick = function() {
-                // Hide intro and show content
+         
                 intro.style.display = 'none';
                 content.style.display = 'flex';
                 
-                // Create and show photos
+       
                 showPhotos();
-                
-                // Create floating hearts
                 createHearts();
             };
             
-                function showPhotos() {
+        function showPhotos() {
     const photos = [
         '/WhatsApp Image 2025-03-21 at 20.13.46_68d2afa3.jpg',
         '/WhatsApp Image 2025-03-21 at 20.13.59_5caf3912.jpg',
@@ -229,7 +227,7 @@
         '/WhatsApp Image 2025-03-21 at 20.14.00_408a7b5a.jpg'
     ];
 
-    photoContainer.innerHTML = ''; // Clear any existing photos
+    photoContainer.innerHTML = ''; 
 
     photos.forEach((src, index) => {
         setTimeout(() => {
@@ -247,11 +245,11 @@
                 photo.classList.add('active');
             }, 100);
 
-            // Spread images after some time
+            
             if (index === photos.length - 1) {
-                setTimeout(spreadPhotos, 7000); // Extended delay before spreading
+                setTimeout(spreadPhotos, 7000); 
             }
-        }, index * 700); // Slower stagger effect
+        }, index * 700);
     });
 }
 
@@ -259,15 +257,15 @@ function spreadPhotos() {
     const photos = document.querySelectorAll('.photo');
 
     photos.forEach((photo) => {
-        const x = Math.random() * (window.innerWidth - 400); // Avoiding edge cut-offs
+        const x = Math.random() * (window.innerWidth - 400); 
         const y = Math.random() * (window.innerHeight - 400); 
-        const rotation = Math.random() * 60 - 30; // More natural tilt
+        const rotation = Math.random() * 60 - 30;
 
-        photo.style.transition = 'all 3s ease-in-out'; // Longer animation
+        photo.style.transition = 'all 3s ease-in-out'; 
         photo.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg) scale(1.3)`;
     });
 
-    // Show final message after spreading animation
+   
     setTimeout(showFinalMessage, 3500);
 }
 
@@ -275,7 +273,7 @@ function showFinalMessage() {
     finalMessage.style.opacity = '1';
     finalMessage.style.visibility = 'visible';
 
-    // Heartbeat effect on message
+    
     const h1 = finalMessage.querySelector('h1');
     setInterval(() => {
         h1.style.animation = 'heartbeat 1s';
@@ -289,32 +287,32 @@ function showFinalMessage() {
             function createHearts() {
                 const body = document.body;
                 
-                // Heart SVG
+           //gpt marte holo bosssssssss
                 const heartSVG = `<svg viewBox="0 0 24 24" fill="#e83e8c"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
                 
-                // Create multiple hearts
+              
                 for (let i = 0; i < 30; i++) {
                     const heart = document.createElement('div');
                     heart.className = 'heart';
                     heart.innerHTML = heartSVG;
                     
-                    // Random position
+                   
                     heart.style.left = Math.random() * 100 + '%';
                     heart.style.top = Math.random() * 100 + '%';
                     
-                    // Random size
+                  
                     const size = Math.random() * 20 + 20;
                     heart.style.width = size + 'px';
                     heart.style.height = size + 'px';
                     
-                    // Add floating animation
+                    
                     heart.style.animation = `float ${Math.random() * 3 + 3}s infinite ease-in-out`;
                     heart.style.animationDelay = Math.random() * 5 + 's';
                     
-                    // Add to body
+                   
                     body.appendChild(heart);
                     
-                    // Fade in
+                    
                     setTimeout(() => {
                         heart.style.opacity = Math.random() * 0.5 + 0.3;
                     }, i * 100);
